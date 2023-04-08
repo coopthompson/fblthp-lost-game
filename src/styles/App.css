@@ -1,0 +1,26 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.ranking, .ranking--categories {
+    display: grid;
+    grid-template-columns: 100px 100px 100px;
+}
+
+
+.leader--board {
+    width: 300px;
+    height: 40vh;
+    overflow-y: auto;
+    text-align: center;
+    border: solid 1px black;
+    justify-self: center;
+}
+
+.leader--label {
+    display: flex;
+    width: 300px;
+    justify-content: center;
+}
