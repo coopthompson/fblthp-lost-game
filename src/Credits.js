@@ -1,6 +1,6 @@
 const Credits = () => {
     return (
-        <h1>Something else</h1>
+        <h1>Test in Credits</h1>
     )
 }
 
