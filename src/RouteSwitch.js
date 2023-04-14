@@ -12,7 +12,7 @@ const RouteSwitch = () => {
     explanation: true,
     named: false,
     scored: false,
-    playingGame: true,
+    playingGame: false,
     playerData:[],
     newPlayerName:"",
     newPlayerTime:0
@@ -71,7 +71,8 @@ const RouteSwitch = () => {
     setGameData((prevGameData) => {
       return {
         ...prevGameData,
-        scored: true
+        scored: true,
+        named: false
       }
     })
   }
@@ -98,6 +99,16 @@ const RouteSwitch = () => {
     })
   }
 
+  const handleStart = () => {
+    setGameData((prevGameData) => {
+      return {
+        ...prevGameData,
+        explanation: false,
+        playingGame: true
+      }
+    })
+  }
+
   return (
     <BrowserRouter>
       <Routes>
@@ -112,6 +123,7 @@ const RouteSwitch = () => {
               onSubmitNewPlayer={onSubmitNewPlayer}
               leaderBoardArray={leaderBoardArray}
               newPlayerEntry={newPlayerEntry}
+              handleStart={handleStart}
             />
           </>
         }/>

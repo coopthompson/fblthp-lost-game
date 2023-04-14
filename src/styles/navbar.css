@@ -1,0 +1,18 @@
+.navbar {
+    position: fixed;
+    z-index: 1;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background-color: black;
+    color: white;
+    width: 100%;
+    padding: 10px;
+    top: 0;
+}
+
+.navbar--container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
