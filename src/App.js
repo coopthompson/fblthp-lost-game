@@ -14,8 +14,11 @@ function App(props) {
           leaderBoardArray, 
           scored,
           handleStart,
-          playingGame
-  
+          playingGame,
+          handleBoardClick,
+          displayQuestion,
+          questionInfo,
+          leftToFind
         } = props
   
   return (
@@ -33,7 +36,13 @@ function App(props) {
         leaderBoardArray={leaderBoardArray} 
         scored={scored} 
       />
-      <Gameboard playingGame={playingGame} />
+      <Gameboard 
+        playingGame={playingGame} 
+        handleBoardClick={handleBoardClick}
+        displayQuestion={displayQuestion}
+        questionInfo={questionInfo}
+        leftToFind={leftToFind}
+      />
     </div>
   );
 }

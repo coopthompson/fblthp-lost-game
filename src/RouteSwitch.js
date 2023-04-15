@@ -13,9 +13,16 @@ const RouteSwitch = () => {
     named: false,
     scored: false,
     playingGame: false,
+    displayQuestion: false,
     playerData:[],
     newPlayerName:"",
-    newPlayerTime:0
+    newPlayerTime:0,
+    leftToFind:[1,2,3,4,5],
+    questionInfo:{
+      idNumb:"",
+      top:"0px",
+      left:"0px"
+    }
   })
   
 
@@ -26,8 +33,13 @@ const RouteSwitch = () => {
           playerData, 
           newPlayerName,
           newPlayerTime,
-          explanation
+          explanation,
+          leftToFind,
+          displayQuestion,
+          questionInfo
         } = gameData
+
+  console.log(leftToFind)
 
   const playerCollectionRef = collection(db, "players")
 
@@ -109,12 +121,61 @@ const RouteSwitch = () => {
     })
   }
 
+  const handleBoardClick = (e) => {
+
+    const container = document.getElementById('game--container')
+    const question = document.getElementById('question--div')
+
+    const { id } = e.target
+
+    let idNumb = ""
+
+    if (id === "") {
+      idNumb = false;
+    } else {
+      idNumb = Number(id.replace(/[^0-9]/g,""));
+    }
+
+    let x = e.clientX - container.getBoundingClientRect().left - (question.clientWidth / 2);
+	  let y = e.clientY - container.getBoundingClientRect().top - (question.clientHeight / 2);
+
+    setGameData((prevGameData) => {
+      return {
+        ...prevGameData,
+        displayQuestion: true,
+        questionInfo:{idNumb: idNumb, top: y, left: x}
+      }
+    })
+
+    if (idNumb !== "" && idNumb !== false) {
+      const newLeftToFind = leftToFind.filter((locationNumber) => {
+        if (idNumb !== locationNumber) {
+          return locationNumber;
+        } else {
+          return "";
+        }
+      })
+      setGameData((prevGameData) => {
+        return {
+          ...prevGameData,
+          leftToFind: newLeftToFind
+        }
+      })
+    
+    }
+  }
+
+    
+    
+
+  console.log(questionInfo)
+
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/" element={
           <>
-            <Navbar />
+            <Navbar leftToFind={leftToFind.length} />
             <App 
               named={named}
               scored={scored}
@@ -124,12 +185,16 @@ const RouteSwitch = () => {
               leaderBoardArray={leaderBoardArray}
               newPlayerEntry={newPlayerEntry}
               handleStart={handleStart}
+              handleBoardClick={handleBoardClick}
+              displayQuestion={displayQuestion}
+              questionInfo={questionInfo}
+              leftToFind={leftToFind}
             />
           </>
         }/>
         <Route path="/credits" element={
         <>
-          <Navbar />
+          <Navbar leftToFind={leftToFind.length}/>
           <Credits />
         </>
           }/>
@@ -137,5 +202,4 @@ const RouteSwitch = () => {
     </BrowserRouter>
   )
 }
-
 export default RouteSwitch

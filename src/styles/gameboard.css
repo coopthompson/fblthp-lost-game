@@ -8,7 +8,7 @@ body{
     margin-right: 10px;
 }
 
-.game--container {
+#game--container {
     position: relative;
 }
 
@@ -43,6 +43,13 @@ body{
 #fib5 {
     top: 43%;
     right: 1.25%;
+}
+
+#question--div {
+    z-index: 1;
+    position: absolute;
+    top: 0px;
+    left: 0px;
 }
 
 
