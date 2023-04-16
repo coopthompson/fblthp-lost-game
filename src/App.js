@@ -7,34 +7,37 @@ import GameExplainer from "./components/explain"
 
 function App(props) {
   const {
-          explanation,
-          named,
+          explanationDisplayed,
+          inputDisplayed,
           newPlayerEntry,
           onSubmitNewPlayer, 
           leaderBoardArray, 
-          scored,
+          leaderBoardDisplayed,
           handleStart,
           playingGame,
           handleBoardClick,
           displayQuestion,
           questionInfo,
-          leftToFind
+          leftToFind,
+          handleNo,
+          handleYes,
+          questionStyling
         } = props
   
   return (
     <div className="project--container">
       <GameExplainer 
-        explanation={explanation}
+        explanationDisplayed={explanationDisplayed}
         handleStart={handleStart}
       />
       <InputField 
-        named={named} 
+        inputDisplayed={inputDisplayed} 
         newPlayerEntry={newPlayerEntry} 
         onSubmitNewPlayer={onSubmitNewPlayer} 
       />
       <LeaderBoard 
         leaderBoardArray={leaderBoardArray} 
-        scored={scored} 
+        leaderBoardDisplayed={leaderBoardDisplayed} 
       />
       <Gameboard 
         playingGame={playingGame} 
@@ -42,6 +45,9 @@ function App(props) {
         displayQuestion={displayQuestion}
         questionInfo={questionInfo}
         leftToFind={leftToFind}
+        handleNo={handleNo}
+        handleYes={handleYes}
+        questionStyling={questionStyling}
       />
     </div>
   );

@@ -1,10 +1,10 @@
 import "../styles/leaderboard.css"
 
 const LeaderBoard = (props) => {
-    const { scored, leaderBoardArray} = props
+    const { leaderBoardDisplayed, leaderBoardArray} = props
     return (
         <div>
-            {scored && <div>
+            {leaderBoardDisplayed && <div>
                 <div className="leader--label">Leader Board</div>
                 <div className="leader--board" name="leaderBoard">
                 <div className="ranking--categories">

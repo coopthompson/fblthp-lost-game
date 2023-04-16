@@ -9,37 +9,42 @@ import Credits from "./Credits";
 const RouteSwitch = () => {
 
   const [gameData, setGameData] = useState({
-    explanation: true,
-    named: false,
-    scored: false,
+    explanationDisplayed: true,
+    inputDisplayed: false,
+    leaderBoardDisplayed: false,
     playingGame: false,
-    displayQuestion: false,
+    displayQuestion: true,
+    isRunning: false,
     playerData:[],
     newPlayerName:"",
     newPlayerTime:0,
     leftToFind:[1,2,3,4,5],
     questionInfo:{
       idNumb:"",
-      top:"0px",
-      left:"0px"
+    },
+    questionStyling: {
+      top: 0,
+      left: 0,
     }
   })
   
 
   const { 
-          named, 
-          scored, 
+          inputDisplayed, 
+          leaderBoardDisplayed, 
           playingGame, 
           playerData, 
           newPlayerName,
           newPlayerTime,
-          explanation,
+          explanationDisplayed,
           leftToFind,
           displayQuestion,
-          questionInfo
+          questionInfo,
+          questionStyling,
+          isRunning
         } = gameData
 
-  console.log(leftToFind)
+  console.log(newPlayerTime)
 
   const playerCollectionRef = collection(db, "players")
 
@@ -69,7 +74,7 @@ const RouteSwitch = () => {
 
   useEffect(() => {
     getPlayerList();
-  },[scored])
+  },[leaderBoardDisplayed])
 
   const onSubmitNewPlayer = async() => {
     try {
@@ -83,8 +88,8 @@ const RouteSwitch = () => {
     setGameData((prevGameData) => {
       return {
         ...prevGameData,
-        scored: true,
-        named: false
+        leaderBoardDisplayed: true,
+        inputDisplayed: false
       }
     })
   }
@@ -98,6 +103,15 @@ const RouteSwitch = () => {
       </div>
     )
   })
+
+  const startAndStop = () => {
+    setGameData((prevGameData) => {
+      return {
+        ...prevGameData,
+        isRunning:!isRunning
+      }
+    });
+  };
 
   const newPlayerEntry = (e) => {
 
@@ -115,14 +129,15 @@ const RouteSwitch = () => {
     setGameData((prevGameData) => {
       return {
         ...prevGameData,
-        explanation: false,
+        explanationDisplayed: false,
         playingGame: true
       }
     })
+    startAndStop();
   }
 
   const handleBoardClick = (e) => {
-
+    
     const container = document.getElementById('game--container')
     const question = document.getElementById('question--div')
 
@@ -136,51 +151,85 @@ const RouteSwitch = () => {
       idNumb = Number(id.replace(/[^0-9]/g,""));
     }
 
-    let x = e.clientX - container.getBoundingClientRect().left - (question.clientWidth / 2);
-	  let y = e.clientY - container.getBoundingClientRect().top - (question.clientHeight / 2);
+    let x = 70 + e.clientX - container.getBoundingClientRect().left - (question.clientWidth / 2);
+	  let y = 40 + e.clientY - container.getBoundingClientRect().top - (question.clientHeight / 2);
 
     setGameData((prevGameData) => {
       return {
         ...prevGameData,
         displayQuestion: true,
-        questionInfo:{idNumb: idNumb, top: y, left: x}
+        questionInfo:{idNumb: idNumb},
+        questionStyling:{
+          top: y,
+          left: x,
+          backgroundColor: "black",
+          color: "white"
+        }
       }
     })
+  }
 
-    if (idNumb !== "" && idNumb !== false) {
+  const handleNo = (e) => {
+    e.stopPropagation();
+    setGameData((prevGameData) => {
+      return {
+        ...prevGameData,
+        questionStyling:{}
+        }
+      })
+    }
+
+  const handleYes = (e) => {
+    e.stopPropagation();
+    setGameData((prevGameData) => {
+      return {
+        ...prevGameData,
+        questionStyling:{}
+        }
+      }
+    )
+    if (questionInfo.idNumb === false) {
+      console.log("That isn't Fblthp!")
+    } else if (typeof(questionInfo.idNumb) === "number") {
+      console.log("That is Fblthp!")
       const newLeftToFind = leftToFind.filter((locationNumber) => {
-        if (idNumb !== locationNumber) {
+        if (questionInfo.idNumb !== locationNumber) {
           return locationNumber;
         } else {
           return "";
         }
       })
+      const stopWatchTime = document.getElementById("stopwatch-time").textContent
+      newLeftToFind.length === 0 ? startAndStop() : console.log('Keep it up')
       setGameData((prevGameData) => {
         return {
           ...prevGameData,
-          leftToFind: newLeftToFind
+          playingGame: newLeftToFind.length === 0 ? false : true,
+          inputDisplayed: newLeftToFind.length === 0 ? true : false,
+          leftToFind: newLeftToFind,
+          newPlayerTime: stopWatchTime
         }
       })
-    
+      
     }
   }
-
-    
-    
-
-  console.log(questionInfo)
 
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/" element={
           <>
-            <Navbar leftToFind={leftToFind.length} />
+            <Navbar 
+              newPlayerTime={newPlayerTime}
+              leftToFind={leftToFind.length}  
+              isRunning={isRunning} 
+              startAndStop={startAndStop}
+            />
             <App 
-              named={named}
-              scored={scored}
+              inputDisplayed={inputDisplayed}
+              leaderBoardDisplayed={leaderBoardDisplayed}
               playingGame={playingGame}
-              explanation={explanation}
+              explanationDisplayed={explanationDisplayed}
               onSubmitNewPlayer={onSubmitNewPlayer}
               leaderBoardArray={leaderBoardArray}
               newPlayerEntry={newPlayerEntry}
@@ -189,12 +238,20 @@ const RouteSwitch = () => {
               displayQuestion={displayQuestion}
               questionInfo={questionInfo}
               leftToFind={leftToFind}
+              handleNo={handleNo}
+              handleYes={handleYes}
+              questionStyling={questionStyling}
             />
           </>
         }/>
         <Route path="/credits" element={
         <>
-          <Navbar leftToFind={leftToFind.length}/>
+          <Navbar 
+            newPlayerTime={newPlayerTime}
+            leftToFind={leftToFind.length}
+            startAndStop={startAndStop}
+            isRunning={isRunning}
+          />
           <Credits />
         </>
           }/>

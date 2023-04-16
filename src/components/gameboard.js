@@ -5,22 +5,21 @@ const Gameboard = (props) => {
 
   const {
           playingGame, 
-          handleBoardClick, 
-          questionInfo,
-          leftToFind 
+          handleBoardClick,
+          handleNo,
+          handleYes,
+          questionStyling,
+          displayQuestion
         } = props
-
-  const questionPosition = {
-    top: questionInfo.top,
-    left: questionInfo.left,
-    backgroundColor: "black",
-    color: "white"
-  }
 
   return (
     <>
       {playingGame && <div id="game--container" onClick={handleBoardClick}>
-        {playingGame && <div id="question--div" style={questionPosition}>Test</div>}
+        {displayQuestion && <div id="question--div" style={questionStyling}>
+          <p>Did you find Fblthp?</p>
+          <button onClick={handleYes}>Yes</button>
+          <button onClick={handleNo}>No</button>
+        </div>}
         <div id="fib1" className="square--div"></div>
         <div id="fib2" className="square--div"></div>
         <div id="fib3" className="square--div"></div>

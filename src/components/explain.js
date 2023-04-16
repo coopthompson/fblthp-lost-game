@@ -2,11 +2,11 @@ import "../styles/explain.css"
 
 const GameExplainer = (props) => {
 
-    const { explanation, handleStart } = props
+    const { explanationDisplayed, handleStart } = props
 
     return (
         <>
-          {explanation && <div className="rules--border">
+          {explanationDisplayed && <div className="rules--border">
             <div className="rules--container">
               <p>
                 Welcome to Fblthp Lost! 
