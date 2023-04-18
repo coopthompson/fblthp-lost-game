@@ -9,12 +9,17 @@ const Gameboard = (props) => {
           handleNo,
           handleYes,
           questionStyling,
-          displayQuestion
+          displayQuestion,
+          message,
+          messageDisplayed
         } = props
 
   return (
     <>
       {playingGame && <div id="game--container" onClick={handleBoardClick}>
+        {messageDisplayed && <div className="click--message">
+          {message}
+        </div>}
         {displayQuestion && <div id="question--div" style={questionStyling}>
           <p>Did you find Fblthp?</p>
           <button onClick={handleYes}>Yes</button>

@@ -2,35 +2,42 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    height: 100vh;
+    width: 100vw;
 }
 
-.rules {
-    border: 1px black solid;
-}
-
-.name--entry {
+.credits--container {
     display: flex;
     flex-direction: column;
-    gap: 10px;
-    border-radius: 5px;
-    border: 3px solid white;
     justify-content: center;
     align-items: center;
-    color: white;
     background-color: black;
-    width: 300px;
+    color: white;
+    width: 500px;
+    border-radius: 5px;
+    padding-bottom: 10px;
+    padding-top: 10px;
+    gap: 0;
 }
 
-.entry {
+.gratitude {
+    margin-bottom: 5px;
+}
+
+.fblthp--image { 
+    margin-top: 20px;
+    width: 500px;
+}
+
+.return {
     display: flex;
     justify-content: center;
     align-items: center;
     background-color: black;
     color: white;
-    border: solid white 1px;
+    border: solid white 2px;
     border-radius: 5px;
     text-decoration: none;
-    width: 70px;
-    padding: 3px;
-    margin-bottom: 3px;
+    width: 150px;
+    padding: 5px;
 }

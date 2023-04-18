@@ -7,9 +7,10 @@ const InputField = (props) => {
     return (
         <div>
             {inputDisplayed && <div className="name--entry">
+                <h2>Leader Board Entry</h2>
                 <label htmlFor="newPlayerName">Name</label>
                 <input type="text" name="newPlayerName" onChange={newPlayerEntry}/>
-                <button onClick={onSubmitNewPlayer}>Enter</button>
+                <button className="entry" onClick={onSubmitNewPlayer}>Enter</button>
             </div>}
         </div>
     )

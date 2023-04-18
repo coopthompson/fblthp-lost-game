@@ -5,6 +5,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Navbar from "../src/components/navbar"
 import App from "./App";
 import Credits from "./Credits";
+import Sidebar from "./components/sidebar"
 
 const RouteSwitch = () => {
 
@@ -18,6 +19,8 @@ const RouteSwitch = () => {
     playerData:[],
     newPlayerName:"",
     newPlayerTime:0,
+    message:"Test",
+    messageDisplayed: false,
     leftToFind:[1,2,3,4,5],
     questionInfo:{
       idNumb:"",
@@ -41,10 +44,10 @@ const RouteSwitch = () => {
           displayQuestion,
           questionInfo,
           questionStyling,
-          isRunning
+          isRunning,
+          message,
+          messageDisplayed
         } = gameData
-
-  console.log(newPlayerTime)
 
   const playerCollectionRef = collection(db, "players")
 
@@ -158,6 +161,7 @@ const RouteSwitch = () => {
       return {
         ...prevGameData,
         displayQuestion: true,
+        messageDisplayed: false,
         questionInfo:{idNumb: idNumb},
         questionStyling:{
           top: y,
@@ -189,9 +193,21 @@ const RouteSwitch = () => {
       }
     )
     if (questionInfo.idNumb === false) {
-      console.log("That isn't Fblthp!")
-    } else if (typeof(questionInfo.idNumb) === "number") {
-      console.log("That is Fblthp!")
+      setGameData((prevGameData) => {
+        return {
+          ...prevGameData,
+          message: "Thats not Fblthp!",
+          messageDisplayed:true,
+        }
+      })
+    } else if (typeof(questionInfo.idNumb) === "number" && leftToFind.includes(questionInfo.idNumb)) {
+      setGameData((prevGameData) => {
+        return {
+          ...prevGameData,
+          message: "That is Fblthp!",
+          messageDisplayed:true
+        }
+      })
       const newLeftToFind = leftToFind.filter((locationNumber) => {
         if (questionInfo.idNumb !== locationNumber) {
           return locationNumber;
@@ -200,7 +216,9 @@ const RouteSwitch = () => {
         }
       })
       const stopWatchTime = document.getElementById("stopwatch-time").textContent
-      newLeftToFind.length === 0 ? startAndStop() : console.log('Keep it up')
+       if (newLeftToFind.length === 0) {
+        startAndStop();
+       }  
       setGameData((prevGameData) => {
         return {
           ...prevGameData,
@@ -211,6 +229,14 @@ const RouteSwitch = () => {
         }
       })
       
+    } else {
+      setGameData((prevGameData) => {
+        return {
+          ...prevGameData,
+          messageDisplayed: true,
+          message: "You already got that one!"
+        }
+      })
     }
   }
 
@@ -241,7 +267,10 @@ const RouteSwitch = () => {
               handleNo={handleNo}
               handleYes={handleYes}
               questionStyling={questionStyling}
+              message={message}
+              messageDisplayed={messageDisplayed}
             />
+            {playingGame && <Sidebar />}
           </>
         }/>
         <Route path="/credits" element={

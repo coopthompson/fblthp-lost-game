@@ -21,7 +21,9 @@ function App(props) {
           leftToFind,
           handleNo,
           handleYes,
-          questionStyling
+          questionStyling,
+          message,
+          messageDisplayed
         } = props
   
   return (
@@ -48,6 +50,8 @@ function App(props) {
         handleNo={handleNo}
         handleYes={handleYes}
         questionStyling={questionStyling}
+        message={message}
+        messageDisplayed={messageDisplayed}
       />
     </div>
   );
