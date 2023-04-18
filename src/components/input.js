@@ -1,3 +1,5 @@
+import "../styles/input.css"
+
 const InputField = (props) => {
 
     const {newPlayerEntry, onSubmitNewPlayer, inputDisplayed} = props
