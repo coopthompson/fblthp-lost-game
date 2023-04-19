@@ -1,7 +1,7 @@
 import { db } from "./config/firebase"
 import React, { useEffect, useState } from "react"
 import { getDocs, collection, addDoc } from "firebase/firestore"
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { HashRouter, Routes, Route } from "react-router-dom";
 import Navbar from "../src/components/navbar"
 import App from "./App";
 import Credits from "./Credits";
@@ -19,7 +19,7 @@ const RouteSwitch = () => {
     playerData:[],
     newPlayerName:"",
     newPlayerTime:0,
-    message:"Test",
+    message:"",
     messageDisplayed: false,
     leftToFind:[1,2,3,4,5],
     questionInfo:{
@@ -241,7 +241,7 @@ const RouteSwitch = () => {
   }
 
   return (
-    <BrowserRouter>
+    <HashRouter>
       <Routes>
         <Route path="/" element={
           <>
@@ -285,7 +285,7 @@ const RouteSwitch = () => {
         </>
           }/>
       </Routes>
-    </BrowserRouter>
+    </HashRouter>
   )
 }
 export default RouteSwitch
