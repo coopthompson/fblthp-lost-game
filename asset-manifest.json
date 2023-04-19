@@ -1,17 +1,17 @@
 {
   "files": {
     "main.css": "/fblthp-lost-game/static/css/main.4a53b374.css",
-    "main.js": "/fblthp-lost-game/static/js/main.af05030b.js",
+    "main.js": "/fblthp-lost-game/static/js/main.cc3ba4cc.js",
     "static/media/wheresfblthp.jpeg": "/fblthp-lost-game/static/media/wheresfblthp.8ab5b286c395f8eb917e.jpeg",
     "static/media/fblthpchilling.jpg": "/fblthp-lost-game/static/media/fblthpchilling.b0d8168c78f7bccce548.jpg",
     "static/media/fblthp.jpg": "/fblthp-lost-game/static/media/fblthp.65471d28e20e7b54da29.jpg",
     "static/media/fblthp-avatar.jpg": "/fblthp-lost-game/static/media/fblthp-avatar.e7b5a710780ca6d9047a.jpg",
     "index.html": "/fblthp-lost-game/index.html",
     "main.4a53b374.css.map": "/fblthp-lost-game/static/css/main.4a53b374.css.map",
-    "main.af05030b.js.map": "/fblthp-lost-game/static/js/main.af05030b.js.map"
+    "main.cc3ba4cc.js.map": "/fblthp-lost-game/static/js/main.cc3ba4cc.js.map"
   },
   "entrypoints": [
     "static/css/main.4a53b374.css",
-    "static/js/main.af05030b.js"
+    "static/js/main.cc3ba4cc.js"
   ]
 }
